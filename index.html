@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jemaura Shop</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>🛍 Welcome to Jemaura Shop</h1>
+  <div id="products" class="products"></div>
+
+  <script>
+    // Fetch products from backend and display
+    fetch("http://localhost:5000/products")
+      .then(res => res.json())
+      .then(products => {
+        const container = document.getElementById("products");
+        container.innerHTML = products.map(p => `
+          <div class="product">
+            <img src="${p.image}" alt="${p.name}">
+            <h2>${p.name}</h2>
+            <p>₹${p.price}</p>
+          </div>
+        `).join("");
+      })
+      .catch(err => console.error("Error fetching products:", err));
+  </script>
+</body>
+</html>
